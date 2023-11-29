@@ -842,7 +842,10 @@ class GeographyApi
     public function getRegionsWithHttpInfo($accept, $accept_encoding, $user_agent, $include, $language, $customer_session_id = null, $ancestor_id = null, $area = null, $country_code = null, $country_subdivision_code = null, $iata_location_code = null, $limit = null, $supply_source = null, $type = null, $billing_terms = null, $partner_point_of_sale = null, $payment_terms = null, $platform_name = null, string $contentType = self::contentTypes['getRegions'][0])
     {
         $request = $this->getRegionsRequest($accept, $accept_encoding, $user_agent, $include, $language, $customer_session_id, $ancestor_id, $area, $country_code, $country_subdivision_code, $iata_location_code, $limit, $supply_source, $type, $billing_terms, $partner_point_of_sale, $payment_terms, $platform_name, $contentType);
+        return $this->getRegionsFromRequest($request);
+    }
 
+    public function getRegionsFromRequest($request) {
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -1109,6 +1112,7 @@ class GeographyApi
             }
             throw $e;
         }
+
     }
 
     /**
