@@ -1526,6 +1526,10 @@ class GeographyApi
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
+        $apiKey = $this->config->getApiKeyWithPrefix('Authorization');
+        if ($apiKey !== null) {
+            $defaultHeaders['Authorization'] = $apiKey;
+        }
 
         return new Request(
             'GET',
