@@ -1515,7 +1515,7 @@ class GeographyApi
         $url = null;
         foreach ($headers['Link'] as $link) {
             if (strstr($link, "rel=\"next\"") !== false && preg_match("/<([^>]+)>/", $link, $match)) {
-                $url = $match[0];
+                $url = $match[1];
             }
         }
         if ($url === null) {
