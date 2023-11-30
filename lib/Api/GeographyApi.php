@@ -1512,22 +1512,27 @@ class GeographyApi
     }
 
     public function paginationRequest($headers) {
-        $link = $headers['Link'];
+        $url = null;
+        foreach ($headers['Link'] as $link) {
+            if (strstr($link, "rel=\"next\"") !== false && preg_match("/<([^>]+)>/", $link, $match)) {
+                $url = $match[0];
+            }
+        }
+        if ($url === null) {
+            return null;
+        }
+
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
 
-        if (preg_match("/<([^>]+)>/", $link, $match)) {
-            $url = $match[0];
-            return new Request(
-                'GET',
-                $url,
-                $defaultHeaders,
-                ""
-            );
-        }
-        return null;
+        return new Request(
+            'GET',
+            $url,
+            $defaultHeaders,
+            ""
+        );
     }
 
     /**
