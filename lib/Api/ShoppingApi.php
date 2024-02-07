@@ -935,7 +935,8 @@ class ShoppingApi
                     return [
                         ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Property[]', []),
                         $response->getStatusCode(),
-                        $response->getHeaders()
+                        $response->getHeaders(),
+                        $content
                     ];
                 case 400:
                     if ('\OpenAPI\Client\Model\Error' === '\SplFileObject') {
